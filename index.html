@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pioneer Bank</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div id="login-area">
+        <h1 class="text-center">Welcome to Pioneer Bank</h1>
+
+        <div class="submit-area">
+            <h3>Login</h3>
+            <input class="form-control" type="text" placeholder="Email">
+            <br>
+            <input class="form-control" type="password" placeholder="Password">
+            <br>
+            <button id="login" class="btn btn-success">Enter</button>
+        </div>
+    </div>
+
+    <div id="transaction-area">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="deposit status">
+                    <h5>Deposit</h5>
+                    <h2>$ <span id="add-deposit">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="withdraw status">
+                    <h5>Withdraw</h5>
+                    <h2>$ <span id="reduce-withdraw">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="balance status">
+                    <h5>Balance</h5>
+                    <h2>$ <span id="add-balance">1240</span></h2>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="submit-area">
+                    <h4>Deposit</h4>
+                    <input  id="deposit-amount" type="text" class="form-control" placeholder="$ amount you want to deposit">
+                    <br>
+                    <button id="deposit-btn" class="btn btn-success">Deposit</button>
+                </div>
+            </div>
+        
+            <div class="col-md-6">
+                <div class="submit-area">
+                    <h4>Withdraw</h4>
+                    <input id="withdraw-amount" type="text" class="form-control" placeholder="$ amount you want to withdraw">
+                    <br>
+                    <button id="withdraw-btn" class="btn btn-success">Withdraw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        // Enter button Handler
+        let loginBtn = document.getElementById('login');
+        loginBtn.addEventListener('click', function (){
+            document.getElementById('login-area').style.display = 'none';
+            document.getElementById('transaction-area').style.display = 'block';
+        })
+
+        // Deposit button handler
+        let depositBtn = document.getElementById('deposit-btn');
+        depositBtn.addEventListener('click', function (){
+            addAmount('deposit-amount', 'add-deposit', 'add-balance'); 
+        });
+
+        function addAmount(id1, id2, id3){
+            let depositAmount = document.getElementById(id1);
+            let addDeposit = document.getElementById(id2);
+            let addBalance = document.getElementById(id3);
+            let depositAmountNumber = +depositAmount.value;
+            let addDepositNumber = +addDeposit.innerText;
+            let balanceNumber = +addBalance.innerText;
+            let sumOfDeposit = depositAmountNumber+addDepositNumber;
+            let sumOfBalance = depositAmountNumber + balanceNumber;
+            addDeposit.innerText = sumOfDeposit;
+            addBalance.innerText = sumOfBalance;
+            depositAmount.value = '';
+        }
+
+        // Withdraw button handler
+        let withdrawBtn = document.getElementById('withdraw-btn');
+        withdrawBtn.addEventListener('click', function (){
+            reduceAmount('withdraw-amount', 'reduce-withdraw', 'add-balance');
+        })
+
+        function reduceAmount(id1, id2, id3){
+            let withdrawAmount = document.getElementById(id1);
+            let reduceWithdraw = document.getElementById(id2);
+            let minusBalance = document.getElementById(id3);
+            let withdrawAmountNumber = +withdrawAmount.value;
+            let reduceWithdrawNumber = +reduceWithdraw.innerText;
+            let balanceNumber = +minusBalance.innerText;
+            let sumOfWithDraw = withdrawAmountNumber + reduceWithdrawNumber;
+            reduceWithdraw.innerText = sumOfWithDraw;
+            let sumOfBalance = balanceNumber - withdrawAmountNumber;
+            minusBalance.innerText = sumOfBalance;
+            withdrawAmount.value = '';
+        }
+
+    </script>
+</body>
+</html>
